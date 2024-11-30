@@ -74,3 +74,69 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 - **CodeMirror**: Used for in-browser code editing with syntax highlighting.
 - **Socket.io**: Enables real-time communication for collaborative editing.
 - **Express.js**: Framework for routing and server-side functionality.
+
+```bash
+OnlineCodeEditor/
+├── public/
+|    ├── images/                    # Image files for the editor (e.g., logos, icons, etc.)
+|    │   └── Add files via upload   # Images added to the project
+|    ├── stylesheets/                # Stylesheets for the frontend
+|    │   └── Add files via upload   # CSS files uploaded for styling the application
+|    ├── CodeCraftPro.html           # HTML file for the main editor page
+|    ├── about.html                  # About page of the website
+|    ├── contact.html                # Contact page
+|    ├── cookiePolicy.html           # Cookie policy page
+|    ├── dmcaPolicy.html             # DMCA policy page
+|    ├── editor.html                 # Main editor page for multiple programming languages
+|    ├── editorC.html                # Editor for C programming language
+|    ├── editorCPP.html              # Editor for C++ programming language
+|    ├── editorGo.html               # Editor for Go programming language
+|    ├── editorHTML.html             # Editor for HTML code
+|    ├── editorJS.html               # Editor for JavaScript code
+|    ├── editorJava.html             # Editor for Java code
+|    ├── editorKotlin.html           # Editor for Kotlin code
+|    ├── editorPHP.html              # Editor for PHP code
+|    ├── editorPython.html           # Editor for Python code
+|    ├── editorRuby.html             # Editor for Ruby code
+|    ├── editorcss.css               # Additional CSS for specific editor styles
+|    ├── footer.html                 # Footer content for the website
+|    ├── index.html                  # Main landing page (homepage)
+|    ├── languages.html              # Language selection page
+|    ├── login.html                  # Login page
+|    ├── navbar.html                 # Navigation bar for all pages
+|    ├── payment.html                # Payment processing page
+|    ├── privacyPolicy.html          # Privacy policy page
+|    ├── script.js                   # JavaScript code for the editor's functionality
+|    ├── signup.html                 # Signup page
+|    ├── styles.css                  # Main CSS file for styling the site
+|    ├── tailwind.config.js          # Tailwind CSS configuration
+|    └── termsService.html           # Terms of service page
+├── routes/
+│   ├── index.js
+│   └── users.js
+├── scripts/
+│   └── Add files via upload
+├── temp/
+│   └── Add files via upload
+├── .gitignore
+├── LICENSE
+├── Main.jar
+├── Main.kt
+├── Program.cs
+├── README.md
+├── app.js
+├── code.rb
+├── composer.json
+├── composer.lock
+├── input.txt
+├── inputs.txt
+├── package-lock.json
+├── package.json
+├── server.js
+├── temp.exe
+├── temp.rb
+├── temp.rs
+├── temp.swift
+├── temp_script.py
+
+```
