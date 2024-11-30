@@ -39,13 +39,13 @@ Before you begin, make sure you have the following software installed on your co
 1. Clone the repository to your local machine using Git:
 
     ```bash
-    git clone https://github.com/your-username/online-code-editor.git
+    git clone https://github.com/yashwanthreddy1408/OnlineCodeEditor.git
     ```
 
 2. Navigate to the project's directory:
 
     ```bash
-    cd online-code-editor
+    cd OnlineCodeEditor
     ```
 
 3. Install the required dependencies:
