@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <style>
+        /* Basic reset and styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2; /* Background color for demonstration */
+        }
+
+        /* Navbar container */
+        .navbar {
+            background-color: #171717; /* Dark overlay to match gradient */
+            overflow: hidden;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* Company logo */
+        .company-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .company-logo img {
+            width: 40px; /* Adjust size as needed */
+            margin-right: 10px; /* Space between logo and company name */
+            border-radius: 50%; /* Optional: Round the logo */
+        }
+
+        /* Company name */
+        .company-name {
+            font-size: 28px;
+            color: #dddddd; /* Light gray for other letters */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .company-name .highlight {
+            color: #8A2BE2; /* Highlight color for "C" */
+        }
+
+        /* Navbar links */
+        .navbar-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar-links li {
+            margin-left: 20px;
+        }
+
+        .navbar-links li a {
+            color: #dddddd; /* Light gray for links */
+            text-decoration: none;
+            padding: 12px 18px;
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 20px;
+            position: relative; /* Added for pseudo-element */
+            display: inline-block; /* Ensures shaking effect works */
+        }
+
+        .navbar-links li a:hover {
+            color: #fff; /* White text on hover */
+        }
+
+        .navbar-links li a:hover:before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background-color: #8A2BE2; /* Purple */
+            border-radius: 2px;
+        }
+
+        /* Shaking animation */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .navbar-links li a:hover {
+            animation: shake 0.5s ease-in-out; /* Apply shake animation on hover */
+        }
+
+        /* Sign In button */
+        .signin-btn {
+            color: #fff;
+            background-color: #8A2BE2; /* Purple */
+            border: none;
+            padding: 12px 20px;
+            margin-left: 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .signin-btn:hover {
+            background-color: #6200bd; /* Darker Purple */
+            transform: translateY(-2px); /* Move button up on hover */
+        }
+
+        .signin-btn:hover {
+            animation: shake 0.5s ease-in-out; /* Apply shake animation on hover */
+        }
+
+        @media screen and (max-width: 768px) {
+            .navbar {
+                align-items: flex-start;
+                padding: 10px;
+            }
+
+            .company-logo {
+                margin-bottom: 10px;
+            }
+
+            .navbar-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+                width: 100%;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                z-index: 1000;
+            }
+
+            .navbar-links.show {
+                display: flex;
+            }
+
+            .navbar-links li {
+                margin-left: 0;
+                text-align: center;
+                width: 100%;
+            }
+
+            .navbar-links li a {
+                padding: 15px 20px;
+                display: block;
+            }
+
+            .signin-btn {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .signin-btn {
+                padding: 8px 12px; /* Adjusted padding */
+                font-size: 14px; /* Adjusted font size */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar" id="navbar">
+    <div class="company-logo">
+        <img src="./images/logo.webp" alt="Company Logo">
+        <a href="index.html" class="company-name"><span class="highlight">C</span>ode<span class="highlight">C</span>raft</a>
+    </div>
+    <ul class="navbar-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="CodeCraftPro.html">Premium</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="editor.html">Editor</a></li>
+    </ul>
+    <a href="login.html" id="loginLogoutBtn" class="signin-btn">Sign In</a>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toggle navbar links on small screens
+        const navbar = document.getElementById('navbar');
+        const navbarLinks = navbar.querySelector('.navbar-links');
+
+        navbar.addEventListener('click', function() {
+            navbarLinks.classList.toggle('show');
+        });
+
+        // Check the login status from the server
+        fetch('/api/check-login')
+            .then(response => response.json())
+            .then(data => {
+                const loginLogoutBtn = document.getElementById('loginLogoutBtn');
+                if (data.loggedIn) {
+                    loginLogoutBtn.textContent = 'Logout';
+                    loginLogoutBtn.removeAttribute('href'); // Remove the href attribute for logout
+                    loginLogoutBtn.addEventListener('click', logout);
+                } else {
+                    loginLogoutBtn.textContent = 'Sign In';
+                    loginLogoutBtn.href = 'login.html'; // Update the login link destination
+                }
+            })
+            .catch(error => console.error('Error checking login status:', error));
+    });
+
+    // Function to handle logout action
+    function logout() {
+        fetch('/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === 'Logout successful') {
+                window.location.href = 'login.html'; // Redirect to login page after logout
+            }
+        })
+        .catch(error => console.error('Error logging out:', error));
+    }
+</script>
+
+</body>
+</html>

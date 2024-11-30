@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Go Code Editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
+    <link rel="stylesheet" href="editorcss.css">
+</head>
+<body>
+    <div id="navbar"></div>
+    <header>
+        <h1>Online Go Compiler/Interpreter</h1>
+        <p>Write, Edit and Run your Go code using CodeCraft</p>
+    </header>
+    <div class="container">
+        <div class="editor-section">
+            <div id="editor"></div>
+        </div>
+        <div class="input-output-section">
+            <textarea id="inputs" name="inputs" placeholder="Enter inputs here, separated by new lines"></textarea>
+            <textarea id="output" readonly></textarea>
+        </div>
+        <button id="run">Run</button>
+    </div>
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        Compiling and Running...
+    </div>
+    <br><br><br><br>
+    <div id="footer"></div>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+
+    </script>
+
+    <script>
+        // Load Monaco Editor
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs' }});
+
+        require(['vs/editor/editor.main'], function() {
+            // Define Monaco Editor settings
+            monaco.editor.defineTheme('vs-dark', {
+                base: 'vs-dark',
+                inherit: true,
+                rules: [],
+                colors: {
+                    'editor.background': '#272822',
+                    'editor.foreground': '#F8F8F2',
+                    'editorCursor.foreground': '#F8F8F0',
+                    'editor.lineHighlightBackground': '#3E3D32',
+                    'editorLineNumber.foreground': '#75715E',
+                    'editor.selectionBackground': '#49483E',
+                    'editor.inactiveSelectionBackground': '#3E3D32'
+                }
+            });
+
+            // Initialize Monaco Editor
+            var editor = monaco.editor.create(document.getElementById('editor'), {
+                value: `// Online Go Editor\n// Write, Edit and Run your Go code using CodeCraft\n\n`,
+                language: 'go',
+                theme: 'vs-dark',
+                automaticLayout: true,
+                fontSize: 14,
+                lineNumbers: true,
+                wordWrap: 'on',
+                scrollBeyondLastLine: false
+            });
+
+            // Event listener for Run button
+            document.getElementById('run').addEventListener('click', function() {
+            var code = editor.getValue();
+            var inputs = document.getElementById('inputs').value.split('\n').filter(input => input.trim() !== ''); // Split inputs by new line and remove empty lines
+
+            // Show the loading screen
+            document.getElementById('loading-screen').style.display = 'flex';
+
+            // Send code and inputs to the server for execution
+            fetch('/execute_go', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code: code, inputs: inputs })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').textContent = data.output;
+
+                // Hide the loading screen
+                document.getElementById('loading-screen').style.display = 'none';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('output').textContent = 'Error occurred, check console for details.';
+
+                // Hide the loading screen
+                document.getElementById('loading-screen').style.display = 'none';
+            });
+        });
+
+        });
+    </script>
+</body>
+</html>

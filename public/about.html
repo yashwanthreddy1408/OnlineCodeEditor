@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About CodeCraft</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            margin-top:60px;
+            padding:20px;
+            background: linear-gradient(to right, #8A2BE2, #9370DB);
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            font-size: 2em;
+            color: #8A2BE2;
+            margin-bottom: 10px;
+        }
+
+        .offerings-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .offerings-section {
+            flex: 1 1 calc(50% - 20px);
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .offerings-section h3 {
+            font-size: 1.5em;
+            color: #9370DB;
+            margin-top: 0;
+        }
+
+        .offerings-section ul {
+            padding-left: 20px;
+        }
+
+        .offerings-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .offerings-section p, .offerings-section ul {
+            font-size: 1.1em;
+        }
+
+        .offerings-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .offerings-section ul {
+            padding-left: 20px;
+        }
+
+        .offerings-section strong {
+            color: #8A2BE2;
+        }
+
+        .themes-images {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .theme-image {
+            flex: 1 1 calc(33.33% - 20px);
+            max-width: calc(33.33% - 20px);
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .theme-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .theme-image p {
+            padding: 10px;
+            margin: 0;
+            background: #f4f4f9;
+            color: #333;
+        }
+
+        .section-content {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .section-content h3 {
+            color: #8A2BE2;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .section-content p {
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+
+        .call-to-action {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .call-to-action a {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #8A2BE2;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .call-to-action a:hover {
+            background-color: #9370DB;
+        }
+
+        @media (max-width: 768px) {
+            .offerings-section {
+                flex: 1 1 100%;
+            }
+
+            .theme-image {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .section h2 {
+                font-size: 1.8em;
+            }
+
+            .offerings-section h3 {
+                font-size: 1.3em;
+            }
+
+            .offerings-section p, .offerings-section ul {
+                font-size: 1em;
+            }
+
+            .section-content h3 {
+                font-size: 1.5em;
+            }
+
+            .section-content p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="container">
+        <header class="header">
+            <h1>About CodeCraft</h1>
+        </header>
+        <section class="section welcome">
+            <h2>Welcome to CodeCraft</h2>
+            <p>At CodeCraft, we believe in the power of coding to transform ideas into reality. Whether you're a seasoned developer or just starting your programming journey, our platform is designed to provide you with the tools, resources, and community support you need to succeed. Our state-of-the-art online editors, seamless theming options, and collaborative features make CodeCraft the ideal choice for coders of all levels.</p>
+        </section>
+        <section class="section mission">
+            <h2>Our Mission</h2>
+            <p>Our mission is to empower developers worldwide by offering a robust, intuitive, and feature-rich coding environment. We aim to simplify the coding process, making it accessible to everyone, regardless of their skill level. By providing a seamless and efficient platform, we strive to foster creativity, innovation, and continuous learning in the world of programming. Our goal is to make coding not only a professional skill but a passionate pursuit.</p>
+        </section>
+        <section class="section offerings">
+            <h2>What We Offer</h2>
+            <div class="offerings-content">
+                <div class="offerings-section">
+                    <h3>Advanced Online Editors</h3>
+                    <ul>
+                        <li><strong>JavaScript Editor:</strong> Our JavaScript editor is equipped with the latest features and integrates the powerful Monaco Editor. It supports syntax highlighting, intelligent code completion, and real-time collaboration, making it the perfect tool for web development projects.</li>
+                        <li><strong>Python Editor:</strong> Code, run, and debug Python scripts with ease. Our Python editor provides an excellent environment for data science, machine learning, and web development.</li>
+                        <li><strong>PHP Editor:</strong> Develop dynamic web applications with our PHP editor, which includes syntax highlighting, error detection, and debugging capabilities.</li>
+                        <li><strong>Ruby Editor:</strong> Write and run Ruby code efficiently. Our Ruby editor supports the latest Ruby versions and provides tools for building web applications, scripting, and more.</li>
+                        <li><strong>Java Editor:</strong> Develop Java applications with our robust Java editor. It includes features such as syntax highlighting, code completion, and debugging tools.</li>
+                        <li><strong>C and C++ Compilers:</strong> Write, edit, and compile your C and C++ code directly in our online editors. Our compilers ensure you have the tools needed to develop and test your programs efficiently.</li>
+                        <li><strong>Kotlin Editor:</strong> Build modern applications with our Kotlin editor, which is perfect for Android development and server-side programming.</li>
+                        <li><strong>Go Editor:</strong> Write and run Go programs with ease. Our Go editor provides a seamless environment for building efficient and scalable applications.</li>
+                        <li><strong>HTML and CSS Editors:</strong> Design and style web pages with our HTML and CSS editors. These tools provide live preview, syntax highlighting, and error checking to streamline your web development process.</li>
+                    </ul>
+                </div>
+                <div class="offerings-section">
+                    <h3>Seamless Theming and Customization</h3>
+                    <p>Our editors come with a range of customizable themes, allowing you to create a personalized coding environment. You can easily switch between themes using our intuitive dropdown menu, ensuring that your workspace is always aesthetically pleasing and comfortable for long coding sessions. Dark mode, light mode, and high-contrast options are available to suit your preferences.</p>
+                    <div class="themes-images">
+                        <div class="theme-image">
+                            <img src="./images/theme2.png" alt="Dark Theme">
+                            <p>Dark Theme</p>
+                        </div>
+                        <div class="theme-image">
+                            <img src="./images/theme1.png" alt="Light Theme">
+                            <p>Light Theme</p>
+                        </div>
+                        <div class="theme-image">
+                            <img src="./images/theme3.png" alt="High Contrast Theme">
+                            <p>High Contrast Theme</p>
+                        </div>
+                    </div>
+                    <p>Whether you prefer a sleek dark theme for late-night coding sessions or a high-contrast design, CodeCraft offers options to match your style and enhance your productivity.</p>
+                    <div class="call-to-action">
+                        <a href="index.html">Try CodeCraft Now</a>
+                    </div>
+                </div>
+                <div class="offerings-section">
+                    <h3>Professional and Responsive Design</h3>
+                    <p>Our platform is built with a focus on modern design principles. The user interface is clean, responsive, and easy to navigate. We’ve paid special attention to detail, ensuring that elements such as the navbar, headers, and dropdown menus are not only functional but also visually appealing. Whether you're on a desktop, tablet, or mobile device, CodeCraft provides a seamless experience.</p>
+                </div>
+                <div class="offerings-section">
+                    <h3>Community and Collaboration</h3>
+                    <p>At CodeCraft, we understand the importance of community. Our platform facilitates collaboration, allowing you to work on projects with other developers in real-time. Share your code, get feedback, and learn from others in our thriving community of programmers. Our forums and chat rooms provide spaces for discussions, troubleshooting, and sharing knowledge.</p>
+                </div>
+                <div class="offerings-section">
+                    <h3>Continuous Improvement</h3>
+                    <p>We are committed to continuous improvement. We regularly update our platform with new features and enhancements based on user feedback. Our goal is to ensure that CodeCraft remains at the forefront of coding innovation. We welcome suggestions from our users and strive to implement the most requested features in our updates.</p>
+                </div>
+            </div>
+        </section>
+        <section class="section values">
+            <h2>Our Values</h2>
+            <ul>
+                <li><strong>Innovation:</strong> We constantly seek new ways to improve and expand our platform, ensuring that we provide the best possible tools and features to our users. We embrace cutting-edge technologies to keep CodeCraft ahead of the curve.</li>
+                <li><strong>Accessibility:</strong> We believe that coding should be accessible to everyone. Our platform is designed to be user-friendly, catering to both beginners and experienced developers. We offer extensive documentation, tutorials, and support to help users get the most out of CodeCraft.</li>
+                <li><strong>Community:</strong> We foster a supportive and inclusive community where developers can share knowledge, collaborate on projects, and grow together. We value diversity and believe that a wide range of perspectives makes our community stronger.</li>
+                <li><strong>Excellence:</strong> We strive for excellence in everything we do, from the design of our platform to the quality of our support. Our aim is to provide a superior coding experience for all our users. We are committed to maintaining high standards and constantly improving our services.</li>
+            </ul>
+        </section>
+        <section class="section join-us">
+            <h2>Join Us</h2>
+            <p>Whether you’re looking to build your next big project, learn a new programming language, or collaborate with other developers, CodeCraft is here to help you achieve your goals. Join us today and be part of a vibrant community that’s shaping the future of coding. Our platform is designed to grow with you, offering more features and improvements as you advance in your coding journey.</p>
+            <p>Thank you for choosing CodeCraft. Together, we can craft the future of code.</p>
+        </section>
+    </div>
+    <div id="footer"></div>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    </script>
+</body>
+</html>

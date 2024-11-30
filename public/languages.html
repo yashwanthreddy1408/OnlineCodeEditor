@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select a Language to Start Coding - CodeCraft Editor</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Flex container for centering content */
+        .flex-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heading style */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Container for language cards */
+        .languages-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        /* Styling for each language card */
+        .language-card {
+            width: 200px;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            background-color: #fff;
+        }
+
+        .language-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .language-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .language-card p {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .flex-container {
+                padding: 10px;
+            }
+            .language-card {
+                width: 45%; /* Adjust width for smaller screens */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .language-card {
+                width: 100%; /* Full width on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div> <!-- Dynamically loaded navbar -->
+    <div class="flex-container">
+        <h1>Select a Language to Start Coding</h1>
+
+        <div class="languages-container">
+            <a href="editorHTML.html" style="text-decoration:none;color:black;">
+                <div class="language-card" onclick="selectLanguage('html')">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEc9A_S6BPxCDRp5WjMFEfXrpCu1ya2OO-Lw&s" alt="HTML">
+                    <p>HTML</p>
+                </div>
+            </a>
+            <a href="editorCSS.html" style="text-decoration:none;color:black;">
+                <div class="language-card" onclick="selectLanguage('css')">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBS-Jftq7EiLZDB75AVtZMxHob-mpwPgM9FQ&s" alt="CSS">
+                    <p>CSS</p>
+                </div>
+            </a>
+            <a href="editorJS.html" style="text-decoration:none;color:black;">
+                <div class="language-card" onclick="selectLanguage('javascript')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript">
+                    <p>JavaScript</p>
+                </div>
+            </a>
+            <a href="editorPython.html" style="text-decoration:none;color:black;">
+                <div class="language-card" onclick="selectLanguage('python')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" alt="Python">
+                    <p>Python</p>
+                </div>
+            </a>
+            <a href="editorPHP.html" style="text-decoration:none;color:black;">
+                <div class="language-card" onclick="selectLanguage('php')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/1200px-PHP-logo.svg.png" alt="PHP">
+                    <p>PHP</p>
+                </div>
+            </a>
+            <a href="editorRuby.html" style="text-decoration:none;color:black;">
+                <div class="language-card" onclick="selectLanguage('ruby')">
+                    <img src="https://i.pinimg.com/originals/07/eb/59/07eb59b203c2287ff2f61ca2d677b83f.png" alt="Ruby">
+                    <p>Ruby</p>
+                </div>
+            </a>
+            <a href="editorJava.html" style="text-decoration:none;color:black;">
+                <div class="language-card" onclick="selectLanguage('java')">
+                    <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/181_Java_logo_logos-512.png" alt="Java">
+                    <p>Java</p>
+                </div>
+            </a>
+            <a href="editorC.html" style="text-decoration:none;color:black;">
+                <div class="language-card" onclick="selectLanguage('C')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png" alt="C">
+                    <p>C</p>
+                </div>
+            </a>
+            <a href="editorCPP.html" style="text-decoration:none;color:black;">
+                <div class="language-card" onclick="selectLanguage('cplusplus')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1822px-ISO_C%2B%2B_Logo.svg.png" alt="C++">
+                    <p>C++</p>
+                </div>
+            </a>
+            <a href="editorGo.html" style="text-decoration:none;color:black;">
+                <div class="language-card" onclick="selectLanguage('go')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Go_Logo_Blue.svg/1200px-Go_Logo_Blue.svg.png" alt="Go">
+                    <p>Go</p>
+                </div>
+            </a>
+            <a href="editorKotlin.html" style="text-decoration:none;color:black;">
+                <div class="language-card" onclick="selectLanguage('kotlin')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kotlin_Icon.png/1200px-Kotlin_Icon.png" alt="Kotlin">
+                    <p>Kotlin</p>
+                </div>
+            </a>
+            <!-- Add more languages with similar structure -->
+        </div>
+    </div>
+
+    <div id="footer"></div> <!-- Dynamically loaded footer -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
+    <script>
+        // Load navbar and footer dynamically
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+
+        // Example function to handle language selection
+        function selectLanguage(language) {
+            alert('You selected ' + language);
+            // Add your logic here to handle language selection, if needed
+        }
+    </script>
+</body>
+</html>

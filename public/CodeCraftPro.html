@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCraft Pro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #fffbed, #fef3cc);
+            margin: 0;
+            display: flex;
+            justify-content: flex-start;
+            
+            flex-direction: column;
+            min-height: 100vh; /* Ensure full viewport height */
+            overflow-x: hidden;  /* Ensure full viewport height */
+        }
+
+        .title-section {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px; /* Increased font size for title */
+            color: #5c3d2e; /* Darker brown color for contrast */
+        }
+
+        .premium-icon {
+            width: 40px; /* Adjust the width as needed */
+            height: auto;
+            margin-left: 10px; /* Add some space between the text and the icon */
+            vertical-align: middle; /* Align the icon with the text */
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            max-width: 1200px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            background-color: #fff; /* Added background color */
+        }
+
+        .why-codecraft-pro {
+            width: 100%;
+            padding: 64px 56px;
+            background: linear-gradient(0deg, #fff8e5, #fffffd);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .content-container {
+            text-align: center;
+        }
+
+        .why-codecraft-section {
+            display: flex;
+            flex-direction: column;
+            color: #4a4a4a;
+            gap: 18px;
+            padding: 32px;
+            transition: all .5s ease;
+            max-width: 500px;
+            font-size:18px;
+        }
+
+        .why-codecraft-section:hover {
+            background-color: #f9f9f9; /* Lighter background on hover */
+            transform: translateY(-5px); /* Lift effect on hover */
+        }
+
+        .why-codecraft-section.active {
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(180deg, #fffbed, #fef3cc);
+            color: #4a4a4a;
+            gap: 18px;
+            padding: 32px;
+            transition: all .5s ease;
+            max-width: 500px;
+            font-size:18px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #5c3d2e; /* Darker brown color for contrast */
+        }
+
+        .why-codecraft-images {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .why-codecraft-images img {
+            max-width: 100%;
+            height: auto;
+            display: none;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+
+        .why-codecraft-images img.active {
+            display: block;
+        }
+
+        .plan {
+            flex: 1;
+            border: 1px solid #ddd;
+            background-color: #fff; /* Added background color */
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+
+        .plan:hover {
+            transform: scale(1.05); /* Slightly larger on hover */
+        }
+
+        .plan-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #5c3d2e; /* Darker brown color for contrast */
+        }
+
+        .plan-price {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #5c3d2e; /* Darker brown color for contrast */
+        }
+
+        .plan-duration {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .plan-button {
+            background-color: #5c3d2e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .plan-button:hover {
+            background-color: #4b2d1f;
+        }
+
+        .plan-features {
+            text-align: left;
+        }
+
+        .plan-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .plan-feature-icon {
+            color: green;
+            margin-right: 10px;
+        }
+
+        .most-popular {
+            border: 2px solid #ffa500;
+            position: relative;
+            margin-bottom: 0px; /* Increased bottom margin */
+        }
+
+        .most-popular::before {
+            content: "MOST POPULAR";
+            background-color: #ffa500;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            position: absolute;
+            top: -15px; /* Adjusted positioning */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+        }
+
+        .faq-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 20px 20px 60px;
+        }
+
+        .faq-item {
+            margin-bottom: 30px; /* Increased margin between each FAQ item */
+        }
+        .main-container {
+            flex: 1 0 auto; /* Stretch the main container to fill remaining space */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* Optional: stack children vertically */
+        }
+
+        .faq-item h3 {
+            margin-bottom: 10px;
+            color: black; /* Blue color for FAQ headings */
+            padding-left: 10px; /* Padding left for the FAQ heading */
+            font-size: 18px; /* Increased font size for the FAQ heading */
+        }
+
+        .faq-item p {
+            line-height: 1.6;
+            margin-top: 8px; /* Reduced margin between question and answer */
+            padding-left:30px;
+            color: #333; 
+            font-weight: normal;
+        }
+
+        .faq-item .faq-answer {
+            margin-top: 8px;
+            padding-left: 10px;
+            color: #333; /* Darker color for the answer */
+            font-weight: normal; /* Normal font weight for the answer */
+        }
+
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="main-container">
+        <div class="title-section" style="padding-top:40px;">
+            <h1 style="font-size:40px;margin-top: 70px;">Start your learning journey today 
+                <img src="https://cdn.codechef.com/images/home/premium-icon.svg" alt="Premium Icon" class="premium-icon">
+            </h1>
+            <p>Buy Pro to get access to everything!</p>
+        </div>
+    <div class="container">
+        <div class="plan" style="width:300px;">
+            <div class="plan-title">₹999</div>
+            <div class="plan-price">Monthly Pro</div>
+            <div class="plan-duration">Billed Monthly. Cancel anytime</div>
+            <a href="payment.html?value=999" class="plan-button">Subscribe now</a>
+            <div class="plan-features">
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Premium learning content</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Curated Practice problems</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Certificate for each course</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Video solutions and Hints</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Identify failed test cases</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>AI Help for debugging</span>
+                </div>
+            </div>
+        </div>
+        <div class="plan most-popular" style="width:300px;">
+            <div class="plan-title">₹3999</div>
+            <div class="plan-price">Yearly Pro</div>
+            <div class="plan-duration">₹333 / month</div>
+            <a href="payment.html?value=3999" class="plan-button">Buy now</a>
+            <div class="plan-features">
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Access to guided roadmaps</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Premium learning content</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Curated Practice problems</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Certificate for each course</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Invite to Pro community</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Video solutions and Hints</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Identify failed test cases</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>AI Help for debugging</span>
+                </div>
+            </div>
+        </div>
+        <div class="plan" style="width:300px;" >
+            <div class="plan-title">₹7999</div>
+            <div class="plan-price">College plan</div>
+            <div class="plan-duration">Access for 3 years<br>₹222 / month</div>
+            <a href="payment.html?value=7999" class="plan-button">Buy now</a>
+            <div class="plan-features">
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Access to guided roadmaps</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Premium learning content</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Curated Practice problems</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Certificate for each course</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Invite to Pro community</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Video solutions and Hints</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>Identify failed test cases</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>AI Help for debugging</span>
+                </div>
+                <div class="plan-feature">
+                    <span class="plan-feature-icon">✔</span>
+                    <span>One free mentorship call</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="why-codecraft-pro">
+        <div class="content-container">
+            <h2 style="color: #654229; text-align: center;  font-size: 16px; font-style: normal; font-weight: 600; line-height: 150%; letter-spacing: .8px; text-transform: uppercase;">WHY CODECRAFT PRO?</h2>
+            <h1 style="color: #3f2a0b;text-align: center;font-size: 45px;font-style: normal;font-weight: 600;line-height: 130%;padding-top: 5px;margin-top: 0;margin-bottom:5px;">Learn more. Learn fast</h1>
+            <p style="color: #654229; text-align: center;  font-size: 14px; font-style: normal; font-weight: 400; line-height: 140%; max-width: 545px;">More tools that help you at every step to learn faster.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="why-codecraft-content">
+            <div class="why-codecraft-section active" data-image="ai-debugging">
+                <div class="section-title">AI Debugging tool</div>
+                <p>Ask our highly effective AI bot for help to find potential bugs in your code. Or ask AI to explain the problem statement better.</p>
+            </div>
+            <div class="why-codecraft-section" data-image="video-solutions">
+                <div class="section-title">Video Solutions</div>
+                <p>Stuck? Video solutions are provided for problems. Clarify your logic then and there.</p>
+            </div>
+            <div class="why-codecraft-section" data-image="test-cases">
+                <div class="section-title">Test Cases</div>
+                <p>Even the best coders can sometimes miss the most outlier test cases. See exactly which test cases your code failed, to refactor your code better.</p>
+            </div>
+            <div class="why-codecraft-section" data-image="hints">
+                <div class="section-title">Hints</div>
+                <p>Taking help from hints will help you crack the logic sooner, and move to the next problem. Use them only wisely. Try to crack the logic yourself first.</p>
+            </div>
+        </div>
+        <div class="why-codecraft-images">
+            <img id="ai-debugging-img" src="https://cdn.codechef.com/images/pro/ai_debugging.png" alt="AI Debugging">
+            <img id="video-solutions-img" src="https://cdn.codechef.com/images/pro/pro_video_sol.png" alt="Video Solutions">
+            <img id="test-cases-img" src="https://cdn.codechef.com/images/pro/pro_test_cases.png" alt="Test Cases">
+            <img id="hints-img" src="https://cdn.codechef.com/images/pro/pro_hints.png" alt="Hints">
+        </div>
+    </div>
+    <br><br>
+    <div class="faq-container">
+        <h2 style="text-decoration: underline;">FAQ</h2>
+        <br>
+        <div class="faq-item">
+            <h3>1. I am a complete beginner in programming. Is this useful for me?</h3>
+            <p>Our learn to code courses teach all the basics of programming languages. You do not need any prior experience to start learning on CodeCraft.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>2. Is CodeCraft helpful if I already know a programming language?</h3>
+            <p>We have a lot of practice problems for all the programming languages to review your knowledge. Then you can start with learning logic building and beginner DSA courses.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>3. What is the coverage of Pro features?</h3>
+            <div class="faq-answer">
+                <p>- 50+ practical learning courses on learning to code, data structures and algorithms, web development and SQL</p>
+                <p>- 40+ curated practice paths</p>
+                <p>- 10 complete roadmaps to master Python, C, C++, Java, JavaScript, DSA, Analytics or Web development.</p>
+                <p>- AI Help is available in most courses and problems</p>
+                <p>- Hints are available on 500+ problems.</p>
+                <p>- Finding hidden test case feature is available on more than 2000+ problems.</p>
+                <p>- Video editorials are available on 1600+ problems.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <h3>4. How does CodeCraft help me improve Data structures and algorithms?</h3>
+            <p>Checkout our Data Structures and algorithms roadmap which cover all the topics like Time complexity, Arrays, Strings, Sorting, Greedy Algorithms, Two pointers, Prefix sums, Binary Search, Recursion, Bit Manipulation, Dynamic programming, Number theory, Linked Lists, Stacks and Queues, Matrices, Trees and Binary trees, Graphs, Heaps, Disjoint Set Union, Tries.</p>
+            <p>We also have a set of 4500+ high quality problems solved by millions of users.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>5. Are there any hidden charges?</h3>
+            <p>Absolutely not! We believe in full transparency with our community and what you see is exactly what you will get.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>6. Will my plan get renewed automatically?</h3>
+            <p>We only renew monthly subscriptions for Indian users. Yearly and College subscriptions are not renewed automatically.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>7. Can I get a refund after purchase?</h3>
+            <p>At this time, there is no avenue to get a refund. However, with the existing features and what we have in mind, we will ensure that you get full value for your subscription.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>8. What is one free mentorship call in College plan?</h3>
+            <p>You will get a 30 min mentoring call with our Tech and Product head. In that call, you can ask about how to get the most out of CodeCraft or any other tech career related guidance you need.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>9. Whom should I contact if I have any queries or complaints regarding CodeCraft Pro?</h3>
+            <p>Our team is available at help@codecraft.com for anything that you need.</p>
+        </div>
+    </div>
+    </div>
+    <div id="footer"></div>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    </script>
+    <script>
+        // Default to show the first image
+        document.getElementById('ai-debugging-img').classList.add('active');
+
+        // Event listener for clicking on sections
+        document.querySelectorAll('.why-codecraft-section').forEach(section => {
+            section.addEventListener('click', function() {
+                // Remove active class from all sections
+                document.querySelectorAll('.why-codecraft-section').forEach(sec => {
+                    sec.classList.remove('active');
+                });
+                // Add active class to the clicked section
+                this.classList.add('active');
+                
+                // Hide all images
+                document.querySelectorAll('.why-codecraft-images img').forEach(img => {
+                    img.classList.remove('active');
+                });
+                // Get the data-image attribute and show the corresponding image
+                const imageId = this.getAttribute('data-image') + '-img';
+                document.getElementById(imageId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

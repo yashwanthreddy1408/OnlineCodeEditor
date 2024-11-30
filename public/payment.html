@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page - CodeCraft</title>
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            font-size: 24px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #f0e68c;
+        }
+
+        .sign-in-btn {
+            background-color: #9370DB;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sign-in-btn:hover {
+            background-color: #8A2BE2;
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+        }
+
+        /* Payment Form Container */
+        .payment-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 20px;
+            margin-top: 20px; /* Added margin top */
+        }
+
+        /* Payment Form */
+        .payment-form {
+            flex: 1;
+            text-align: left;
+            padding-right: 20px;
+        }
+
+        .payment-form h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #444;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input {
+            width: calc(100% - 24px); /* Reduced width and adjusted for padding */
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #8A2BE2;
+            box-shadow: 0 0 8px rgba(138, 43, 226, 0.2);
+            outline: none;
+        }
+
+        .btn-submit {
+            background: linear-gradient(to right, #8A2BE2, #9370DB);
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #7b1fa2;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            background: #f0f2f5;
+            color: #555;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="navbar-container"></div>
+
+    <div class="main-container">
+        <div class="payment-form-container" style="margin-top: 70px;">
+            <div class="payment-form">
+                <h1>Complete Your Purchase</h1>
+                <form id="payment-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" name="card-number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiry-date">Expiry Date</label>
+                        <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvc">CVC</label>
+                        <input type="text" id="cvc" name="cvc" required>
+                    </div>
+                    <!-- Additional input for fixed amount -->
+                    <div class="form-group">
+                        <label for="fixed-amount">Amount</label>
+                        <input type="text" id="fixed-amount" name="fixed-amount" readonly>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit Payment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <!-- SweetAlert Script -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Load navbar and footer dynamically
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("navbar.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("navbar-container").innerHTML = data;
+                });
+
+            fetch("footer.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("footer-container").innerHTML = data;
+                });
+
+            // Fetch value parameter from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const value = urlParams.get('value');
+
+            // Set value as fixed amount in the additional input box
+            document.getElementById('fixed-amount').value = value;
+
+            // Handle form submission
+            const form = document.getElementById('payment-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Show SweetAlert message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Payment Successful!',
+                    text: 'Thank you for your purchase.',
+                    confirmButtonColor: '#8A2BE2'
+                }).then((result) => {
+                    // Optionally redirect or perform further actions
+                    // Example:
+                     window.location.href = 'index.html';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
