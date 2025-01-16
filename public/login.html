@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #f0f0f0;
+    }
+
+    .wrapper {
+      width: 400px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-field {
+      position: relative;
+      margin: 15px 0;
+    }
+
+    .input-field input {
+      width: 100%;
+      height: 40px;
+      padding: 0 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    .input-field label {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: #999;
+      transition: 0.3s ease;
+      pointer-events: none;
+    }
+
+    .input-field input:focus ~ label,
+    .input-field input:valid ~ label {
+      top: -10px;
+      font-size: 0.8rem;
+      color: #333;
+    }
+
+    .forget {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 25px 0 15px 0;
+      color: #333;
+    }
+
+    #remember {
+      accent-color: #333;
+    }
+
+    .forget label {
+      display: flex;
+      align-items: center;
+    }
+
+    .forget label p {
+      margin-left: 8px;
+    }
+
+    button[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      padding: 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .register {
+      text-align: center;
+      margin-top: 30px;
+      color: #333;
+    }
+
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .social-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #333;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px 20px;
+      margin: 0 10px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .social-button img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    .social-button:hover {
+      background-color: #f0f0f0;
+      border-color: #999;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <form id="loginForm" method="POST" aria-labelledby="loginTitle">
+      <h2 id="loginTitle">Login</h2>
+      <div class="input-field">
+        <input type="email" id="email" name="email" required aria-required="true" aria-describedby="emailHelp">
+        <label for="email">Enter your email</label>
+        <small id="emailHelp" class="sr-only">Please enter a valid email address</small>
+      </div>
+      <div class="input-field">
+        <input type="password" id="password" name="password" required aria-required="true" aria-describedby="passwordHelp">
+        <label for="password">Enter your password</label>
+        <small id="passwordHelp" class="sr-only">Please enter your password</small>
+      </div>
+      <div class="forget">
+        <label for="remember">
+          <input type="checkbox" id="remember" name="remember" aria-labelledby="rememberMeLabel">
+          <p id="rememberMeLabel">Remember me</p>
+        </label>
+        <a href="#" style="color: #333;text-decoration: none;">Forgot password?</a>
+      </div>
+      <button type="submit" aria-label="Log In">Log In</button>
+      <div class="register">
+        <p>Don't have an account? <a href="signup.html" style="color: #333;text-decoration: none;">Register</a></p>
+      </div>
+      <div class="social-buttons">
+        <a href="#" class="social-button" onclick="loginWithGoogle()" aria-label="Log in with Google">
+          <img src="https://banner2.cleanpng.com/20180423/gkw/kisspng-google-logo-logo-logo-5ade7dc753b015.9317679115245306313428.jpg" alt="Google logo">
+          Google
+        </a>
+        <a href="#" class="social-button" onclick="loginWithFacebook()" aria-label="Log in with Facebook">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjvzC_QRv6moAhgNb5C6e3yicKgFND1g2RwA&s" alt="Facebook logo">
+          Facebook
+        </a>
+      </div>
+      <p id="errorMessage" class="error-message" role="alert"></p> <!-- Error message container -->
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      fetch('/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: data.error
+          });
+        } else {
+          // Set logged in state in localStorage
+          localStorage.setItem('isLoggedIn', 'true');
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: data.message
+          }).then(() => {
+            window.location.href = 'index.html'; // Redirect to a dashboard or homepage
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!'
+        });
+      });
+    });
+
+    function loginWithGoogle() {
+      // Implement Google login logic here
+      alert('Implement Google login logic');
+    }
+
+    function loginWithFacebook() {
+      // Implement Facebook login logic here
+      alert('Implement Facebook login logic');
+    }
+  </script>
+</body>
+</html>

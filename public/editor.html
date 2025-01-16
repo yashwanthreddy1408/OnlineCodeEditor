@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeCraft Editor</title>
+    <link rel="stylesheet" href="editorcss.css">
+    <style>
+        /* Additional CSS styles */
+        .theme-dropdown {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .theme-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .theme-dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .theme-dropdown-content a:hover {background-color: #f1f1f1}
+
+        .show {display:block;}
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+    <header>
+        <h1>CodeCraft</h1>
+        <p>Write, Edit and Run your code using CodeCraft</p>
+    </header>
+    <div class="container">
+        <div class="theme-dropdown">
+            <button id="theme-selector">Themes &#9660;</button>
+            <div class="theme-dropdown-content">
+                <a href="#" id="theme-vscode-light">VS Code Light</a>
+                <a href="#" id="theme-vscode-dark">VS Code Dark</a>
+                <a href="#" id="theme-high-contrast">High Contrast</a>
+            </div>
+        </div>
+        
+        <div class="language-dropdown">
+            <div class="theme-dropdown">
+                <button id="language-selector">Languages &#9660;</button>
+                <div class="theme-dropdown-content">
+                    <a href="#" id="language-c">C</a>
+                    <a href="#" id="language-cpp">C++</a>
+                    <a href="#" id="language-html">HTML</a>
+                    <a href="#" id="language-js">JavaScript</a>
+                    <a href="#" id="language-java">Java</a>
+                    <a href="#" id="language-python">Python</a>
+                    <a href="#" id="language-php">PHP</a>
+                    <a href="#" id="language-go">Go</a>
+                    <a href="#" id="language-kotlin">Kotlin</a>
+                    <a href="#" id="language-ruby">Ruby</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="editor-section">
+            <div id="editor" style="height:500px;width:100%;"></div>
+        </div>
+        <div class="input-output-section">  
+            <textarea id="inputs" name="inputs" placeholder="Enter inputs here, separated by new lines"></textarea>
+            <textarea id="output" style="height: 250px;" readonly></textarea>
+        </div>
+        <br>
+        <button id="run">Run</button>
+    </div>
+    
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        Compiling and Running...
+    </div>
+    <div id="footer"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
+    <script>
+        // Import Monaco Editor
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs' }});
+
+        require(['vs/editor/editor.main'], function() {
+            var editor = monaco.editor.create(document.getElementById('editor'), {
+                value: `// Online Editor\n// Write, Edit and Run your code using CodeCraft\n`,
+                language: 'plaintext',
+                theme: 'vs-dark', // Default theme
+                automaticLayout: true,
+                fontSize: 14,
+                lineNumbers: 'on',
+                lineDecorationsWidth: 20,
+                scrollBeyondLastLine: false
+            });
+
+            var outputElement = document.getElementById('output');
+
+            document.getElementById('run').addEventListener('click', function() {
+                var code = editor.getValue();
+                var inputs = document.getElementById('inputs').value.split('\n').filter(input => input.trim() !== ''); // Split inputs by new line and remove empty lines
+
+                // Clear previous output
+                outputElement.textContent = '';
+
+                // Show the loading screen
+                document.getElementById('loading-screen').style.display = 'flex';
+
+                // Send code and inputs to the server
+                fetch('/execute_code', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ code: code, inputs: inputs })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('output').textContent = data.output;
+
+                    // Hide the loading screen
+                    document.getElementById('loading-screen').style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    outputElement.textContent = 'Error: ' + error;
+
+                    // Hide the loading screen
+                    document.getElementById('loading-screen').style.display = 'none';
+                });
+            });
+
+            // Language selector functionality
+            document.getElementById('language-selector').addEventListener('click', function() {
+                document.querySelector('.language-dropdown .theme-dropdown-content').classList.toggle('show');
+            });
+
+            // Set theme based on selection
+            document.getElementById('theme-vscode-light').addEventListener('click', function() {
+                monaco.editor.setTheme('vs'); // VS Code Light theme
+            });
+
+            document.getElementById('theme-vscode-dark').addEventListener('click', function() {
+                monaco.editor.setTheme('vs-dark'); // VS Code Dark theme
+            });
+
+            document.getElementById('theme-high-contrast').addEventListener('click', function() {
+                monaco.editor.setTheme('hc-black'); // High Contrast theme
+            });
+
+            document.getElementById('language-selector').addEventListener('click', function() {
+            document.querySelector('.language-dropdown .theme-dropdown-content').classList.toggle('show');
+        });
+
+        // Redirect to respective editor pages based on language selection
+        document.getElementById('language-c').addEventListener('click', function() {
+            window.location.href = 'editorC.html'; // Replace with your actual file name
+        });
+
+        document.getElementById('language-cpp').addEventListener('click', function() {
+            window.location.href = 'editorCPP.html';
+        });
+
+        document.getElementById('language-html').addEventListener('click', function() {
+            window.location.href = 'editorHTML.html';
+        });
+
+        document.getElementById('language-js').addEventListener('click', function() {
+            window.location.href = 'editorJS.html';
+        });
+
+        document.getElementById('language-java').addEventListener('click', function() {
+            window.location.href = 'editorJava.html';
+        });
+
+        document.getElementById('language-python').addEventListener('click', function() {
+            window.location.href = 'editorPython.html';
+        });
+
+        document.getElementById('language-php').addEventListener('click', function() {
+            window.location.href = 'editorPHP.html';
+        });
+
+        document.getElementById('language-go').addEventListener('click', function() {
+            window.location.href = 'editorGo.html';
+        });
+
+        document.getElementById('language-kotlin').addEventListener('click', function() {
+            window.location.href = 'editorKotlin.html';
+        });
+
+        document.getElementById('language-ruby').addEventListener('click', function() {
+            window.location.href = 'editorRuby.html';
+        });
+
+
+            // Close dropdowns when clicking outside
+            window.onclick = function(event) {
+                if (!event.target.matches('#theme-selector')) {
+                    var themeDropdowns = document.getElementsByClassName('theme-dropdown-content');
+                    for (var i = 0; i < themeDropdowns.length; i++) {
+                        var openDropdown = themeDropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+
+                if (!event.target.matches('#language-selector')) {
+                    var languageDropdowns = document.getElementsByClassName('language-dropdown-content');
+                    for (var i = 0; i < languageDropdowns.length; i++) {
+                        var openDropdown = languageDropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            };
+        });
+
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    </script>
+</body>
+</html>

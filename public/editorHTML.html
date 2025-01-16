@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Code Editor with Monaco</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/monokai.min.css">
+    <style>
+ /* Importing Google font - Open Sans */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    min-height: 150vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #272822;
+    color: #f8f8f2;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    max-width: 1600px;
+    margin: 20px auto;
+    flex: 1; /* Allow the container to take remaining vertical space */
+}
+
+.editor-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Allow the editor section to take remaining vertical space */
+    resize: horizontal;
+    overflow: hidden;
+    border-right: 1px solid #444;
+}
+
+.editor-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #444;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.editor-container {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.editor-header {
+    background-color: #333;
+    color: #f8f8f2;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.editor-tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.editor-tab {
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #444;
+    color: #f8f8f2;
+    border-radius: 4px 4px 0 0;
+}
+
+.editor-tab.active {
+    background-color: #666;
+}
+
+.editor-content {
+    flex: 1;
+    position: relative;
+}
+
+.editor-statusbar {
+    background-color: #444;
+    color: #f8f8f2;
+    padding: 4px 8px;
+    border-top: 1px solid #333;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editor-statusbar-item {
+    margin-right: 10px;
+}
+
+.output-section {
+    flex: 1; /* Allow the output section to take remaining vertical space */
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #444;
+}
+
+.output-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #444;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.output-header {
+    background-color: #333;
+    color: #f8f8f2;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.output-content {
+    flex: 1;
+    position: relative;
+    overflow: auto;
+}
+
+.output-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #fff;
+}
+
+.footer {
+    background-color: #333;
+    color: #f8f8f2;
+    text-align: center;
+    padding: 10px;
+}
+
+.fullscreen-button, .format-button {
+    padding: 5px 10px;
+    background-color: #444;
+    color: #f8f8f2;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .editor-section, .output-section {
+        width: 90%;
+        max-width: 90%;
+        border-right: none;
+        border-left: none;
+        border-top: 1px solid #444;
+    }
+
+    .output-section {
+        margin-top: 20px;
+    }
+
+    .editor-wrapper, .output-wrapper {
+        height: 300px; /* Set a fixed height for small screens */
+        min-height: 300px; /* Set a minimum height to ensure usability */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .editor-section, .output-section {
+        width: 100%;
+        max-width: 100%;
+        height: 100vh; /* Full viewport height */
+        border-right: none;
+        border-left: none;
+        border-top: none;
+    }
+
+    .editor-wrapper, .output-wrapper {
+        height: 100vh; /* Full viewport height */
+        min-height: 100vh; /* Ensure a minimum height */
+    }
+
+    .output-section {
+        margin-top: 0;
+    }
+
+    .editor-header, .output-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .editor-tabs {
+        flex-wrap: wrap;
+    }
+
+    .editor-tab, .fullscreen-button, .format-button {
+        margin-bottom: 5px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+/* Add this CSS to handle the tab switching issue */
+.editor-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    height: 100%;
+}
+
+.editor-tab-content {
+    display: none;
+    flex: 1;
+    overflow: auto;
+}
+
+.editor-tab-content.active {
+    display: block;
+    height: 100%;
+}
+
+    </style>
+</head>
+<body>
+<div id="navbar"></div>
+
+    <div class="container" style="margin-top:80px;">
+        <div class="editor-section">
+            <div class="editor-wrapper" id="editor-wrapper">
+                <div class="editor-header">
+                    <div class="editor-tabs">
+                        <div id="html-tab" class="editor-tab active " onclick="showEditor('html')">index.html</div>
+                        <div id="css-tab" class="editor-tab " onclick="showEditor('css')">style.css</div>
+                        <div id="js-tab" class="editor-tab" onclick="showEditor('js')">script.js</div>
+                    </div>
+                    <div class="button-group">
+                        <button class="format-button" id="format-button" onclick="formatCode()">Format</button>
+                        <button class="fullscreen-button" id="editor-fullscreen-button" onclick="toggleFullScreen('editor-wrapper')">Fullscreen</button>
+                    </div>
+                </div>
+                <div class="editor-container">
+                    <div id="html-editor" class="editor-content"></div>
+                    <div id="css-editor" class="editor-content" style="display:none;"></div>
+                    <div id="js-editor" class="editor-content" style="display:none;"></div>
+                </div>
+                <div class="editor-statusbar">
+                    <div class="editor-statusbar-item">Line: <span id="status-line">1</span></div>
+                    <div class="editor-statusbar-item">Column: <span id="status-column">1</span></div>
+                    <div class="editor-statusbar-item">Language: <span id="status-language">HTML</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="output-section">
+            <div class="output-wrapper" id="output-wrapper">
+                <div class="output-header">
+                    Output
+                    <button class="fullscreen-button" id="output-fullscreen-button" onclick="toggleFullScreen('output-wrapper')">Fullscreen</button>
+                </div>
+                <div class="output-content">
+                    <iframe id="result" class="output-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <div id="footer"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs/loader.js"></script>
+    <script>
+        let htmlEditor;
+        let cssEditor;
+        let jsEditor;
+        const resultFrame = document.getElementById('result');
+
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs' }});
+        require(['vs/editor/editor.main'], function () {
+            // Initialize Monaco Editor instances
+            htmlEditor = monaco.editor.create(document.getElementById('html-editor'), {
+                value: "<!-- Type your HTML code here -->",
+                language: 'html',
+                theme: 'vs-dark', // Use 'vs' for light theme
+                automaticLayout: true,
+                scrollBeyondLastLine: false,
+                minimap: { enabled: true },
+                fontSize: 14,
+                fontFamily: "Consolas, 'Courier New', monospace"
+            });
+
+            cssEditor = monaco.editor.create(document.getElementById('css-editor'), {
+                value: "/* Type your CSS code here */",
+                language: 'css',
+                theme: 'vs-dark',
+                automaticLayout: true,
+                scrollBeyondLastLine: false,
+                minimap: { enabled: true },
+                fontSize: 14,
+                fontFamily: "Consolas, 'Courier New', monospace"
+            });
+
+            jsEditor = monaco.editor.create(document.getElementById('js-editor'), {
+                value: "// Type your JavaScript code here",
+                language: 'javascript',
+                theme: 'vs-dark',
+                automaticLayout: true,
+                scrollBeyondLastLine: false,
+                minimap: { enabled: true },
+                fontSize: 14,
+                fontFamily: "Consolas, 'Courier New', monospace"
+            });
+
+            // Function to update result when editors change
+            htmlEditor.onDidChangeModelContent(updateResult);
+            cssEditor.onDidChangeModelContent(updateResult);
+            jsEditor.onDidChangeModelContent(updateResult);
+
+            // Initial load
+            showEditor('html');
+            updateResult();
+
+            // Update status bar on cursor position change
+            htmlEditor.onDidChangeCursorPosition(updateStatusBar);
+            cssEditor.onDidChangeCursorPosition(updateStatusBar);
+            jsEditor.onDidChangeCursorPosition(updateStatusBar);
+        });
+
+        function updateResult() {
+            const htmlContent = htmlEditor.getValue();
+            const cssContent = `<style>${cssEditor.getValue()}</style>`;
+            const jsContent = `<script>${jsEditor.getValue()}<\/script>`;
+            const output = `${htmlContent}${cssContent}${jsContent}`;
+            resultFrame.contentDocument.open();
+            resultFrame.contentDocument.write(output);
+            resultFrame.contentDocument.close();
+        }
+
+        function showEditor(type) {
+            // Show the selected editor and update active tab
+            const tabs = { 'html': 'html-editor', 'css': 'css-editor', 'js': 'js-editor' };
+            Object.keys(tabs).forEach(key => {
+                const editorElement = document.getElementById(tabs[key]);
+                editorElement.style.display = key === type ? 'block' : 'none';
+            });
+
+            // Update active tab UI
+            document.querySelectorAll('.editor-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(`${type}-tab`).classList.add('active');
+
+            // Update status bar language
+            const languages = { 'html': 'HTML', 'css': 'CSS', 'js': 'JavaScript' };
+            document.getElementById('status-language').innerText = languages[type];
+
+            // Update cursor position status bar
+            const editor = type === 'html' ? htmlEditor : type === 'css' ? cssEditor : jsEditor;
+            updateStatusBar({ position: editor.getPosition() });
+        }
+
+        function updateStatusBar(event) {
+            const position = event.position;
+            document.getElementById('status-line').innerText = position.lineNumber;
+            document.getElementById('status-column').innerText = position.column;
+        }
+
+        function toggleFullScreen(elementId) {
+            const elem = document.getElementById(elementId);
+            if (!document.fullscreenElement) {
+                elem.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function formatCode() {
+            const editor = document.querySelector('.editor-tab.active').id.split('-')[0] === 'html' ? htmlEditor :
+                           document.querySelector('.editor-tab.active').id.split('-')[0] === 'css' ? cssEditor :
+                           jsEditor;
+            editor.getAction('editor.action.formatDocument').run();
+        }
+    </script>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+
+    </script>
+</body>
+</html>

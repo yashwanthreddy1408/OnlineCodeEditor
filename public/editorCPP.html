@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C++ Code Editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
+    <link rel="stylesheet" href="editorcss.css"> <!-- Assuming you have a separate CSS file for editor styles -->
+</head>
+<body>
+    <div id="navbar"></div>
+    <header>
+        <h1>Online C++ Compiler</h1>
+        <p>Write, Edit and Run your C++ code using CodeCraft</p>
+    </header>
+    <div class="container">
+        <div class="editor-section">
+            <div id="editor"></div> <!-- Monaco Editor will be initialized here -->
+        </div>
+        <div class="input-output-section">
+            <textarea id="inputs" name="inputs" placeholder="Enter inputs here, separated by new lines"></textarea>
+            <textarea id="output" readonly></textarea>
+        </div>
+        <br>
+        <button id="run">Run</button> <!-- Button to run the code -->
+    </div>
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        Compiling and Running...
+    </div>
+    <br><br><br><br>
+    <div id="footer"></div>
+
+    <!-- Fetching navbar and footer content -->
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    </script>
+
+    <!-- Loading Monaco Editor -->
+    <script>
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs' }});
+
+        require(['vs/editor/editor.main'], function() {
+            var editor = monaco.editor.create(document.getElementById('editor'), {
+                value: `// Online C++ Compiler\n// Write, Edit and Run your C++ code using CodeCraft\n\n#include <iostream>\n\nint main() {\n    std::cout << "Hello, World!" << std::endl;\n    return 0;\n}`,
+                language: 'cpp', // Set language to C++
+                theme: 'vs-dark',
+                automaticLayout: true,
+                fontSize: 14,
+                lineNumbers: 'on',
+                lineDecorationsWidth: 20,
+                scrollBeyondLastLine: false
+            });
+
+            document.getElementById('run').addEventListener('click', function() {
+                var code = editor.getValue();
+                var inputs = document.getElementById('inputs').value.split('\n').map(input => input.trim());
+
+                var outputElement = document.getElementById('output');
+                outputElement.textContent = ''; // Clear previous output
+
+                var loader = document.getElementById('loading-screen');
+                loader.style.display = 'flex'; // Display loader screen
+
+                // AJAX request to execute code on the server
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/execute_cpp', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+
+                xhr.onload = function() {
+                    loader.style.display = 'none'; // Hide loader screen
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        outputElement.textContent = response.output || response.error || 'No output received';
+                    } else {
+                        outputElement.textContent = 'Error: ' + xhr.statusText;
+                    }
+                };
+
+                xhr.onerror = function() {
+                    loader.style.display = 'none'; // Hide loader screen
+                    outputElement.textContent = 'Request failed';
+                };
+
+                var data = JSON.stringify({ code: code, inputs: inputs });
+                xhr.send(data);
+            });
+        });
+    </script>
+</body>
+</html>

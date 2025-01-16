@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCraft</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/webp" href="./images/logo.webp">
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="additional-content">
+        <div class="content-wrapper">
+            <div class="text-content">
+                <h2>The best place to build, test, and discover front-end code.</h2>
+                <p>CodeCraft is a social development environment for front-end designers and developers. Build and deploy a website, show off your work, build test cases to learn and debug, and find inspiration.</p>
+                <a href="#" style="text-decoration:none;color:black;"><strong>Sign Up for Free</strong></a>
+            </div>
+            <div class="image-content">
+                
+                <img src="./images/learn-animation.gif" alt="CodeCraft Image">
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-container-box">
+        <div class="feature-box">
+            <h2>Build & Test</h2>
+            <p>Get work done quicker by building out entire projects or isolating code to test features and animations. Want to keep it all under wraps? Upgrade to a PRO account to keep your work private.</p>
+            <a href="editor.html" style="text-decoration:none;color:black;"><strong>Try the Editor</strong></a>
+        </div>
+        <div class="feature-box">
+            <h2>Learn & Discover</h2>
+            <p>Want to upgrade your skills and get noticed? Participating in CodeCraft Challenges is a great way to try something new. We frequently feature these Pens on our homepage and across social media!</p>
+            <a href="#" style="text-decoration:none;color:black;"><strong>Join this Week’s Challenge</strong></a>
+        </div>
+        <div class="feature-box">
+            <h2>Share Your Work</h2>
+            <p>Become a part of the most active front-end community in the world by sharing work. Presenting at a conference? Show your code directly in the browser with Presentation Mode.</p>
+            <a href="#" style="text-decoration:none;color:black;"><strong>Explore Trending</strong></a>
+        </div>
+    </div>
+    <div class="coding-journey">
+        <div class="coding-journey-content">
+            <h1 style=" font-weight: 500;font-size: 64px;line-height: 110%;letter-spacing: -0.01em;color: #2e3446;">Start your coding journey today</h1>
+            <br>
+            <p style="font-style: normal; font-weight: 300; font-size: 20px; line-height: 160%; color: #7e7a7a;">Learn to code from scratch with job-focused courses designed by experts.</p>
+            <br>
+            <form class="email-form" action="#">
+                <input class="email-input" type="email" name="email" placeholder="Enter email" required>
+                <button class="submit-btn" type="submit">Start learning today</button>
+            </form>
+            <br>
+            <div class="social-buttons">
+                <a href="#" class="social-button">
+                    <img src="https://banner2.cleanpng.com/20180423/gkw/kisspng-google-logo-logo-logo-5ade7dc753b015.9317679115245306313428.jpg" alt="Google">
+                    Google
+                </a>
+                <a href="#" class="social-button">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjvzC_QRv6moAhgNb5C6e3yicKgFND1g2RwA&s" alt="Facebook">
+                    Facebook
+                </a>
+                <a href="#" class="social-button">
+                    <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="Github">
+                    Github
+                </a>
+            </div>
+        </div>
+        <div class="infographic-container">
+            <img class="infographic" src="https://cdn.codechef.com/images/home/coding_boy.svg" alt="Coding Infographic">
+        </div>
+    </div>
+    
+
+    <div class="flex-container">
+        <h1>Select a Language to Start Coding</h1>
+
+        <div class="languages-container">
+            <a href="editorHTML.html" style="text-decoration:none;color:black;">
+            <div class="language-card" onclick="selectLanguage('html')">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEc9A_S6BPxCDRp5WjMFEfXrpCu1ya2OO-Lw&s" alt="HTML">
+                <p>HTML</p>
+            </a>
+            </div>
+            <a href="editorHTML.html" style="text-decoration:none;color:black;">
+            <div class="language-card" onclick="selectLanguage('css')">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBS-Jftq7EiLZDB75AVtZMxHob-mpwPgM9FQ&s" alt="CSS">
+                <p>CSS</p>
+            </div>
+            </a>
+            <a href="editorJS.html" style="text-decoration:none;color:black;">
+            <div class="language-card" onclick="selectLanguage('javascript')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript">
+                <p>JavaScript</p>
+            </div>
+            </a>
+            <a href="editorPython.html" style="text-decoration:none;color:black;">
+            <div class="language-card" onclick="selectLanguage('python')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" alt="Python">
+                <p>Python</p>
+            </div>
+            </a>
+            <a href="editorPHP.html" style="text-decoration:none;color:black;">
+            <div class="language-card" onclick="selectLanguage('php')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/1200px-PHP-logo.svg.png" alt="PHP">
+                <p>PHP</p>
+            </div>
+            </a>
+            <a href="editorRuby.html" style="text-decoration:none;color:black;">
+            <div class="language-card" onclick="selectLanguage('ruby')">
+                <img src="https://i.pinimg.com/originals/07/eb/59/07eb59b203c2287ff2f61ca2d677b83f.png" alt="Ruby">
+                <p>Ruby</p>
+            </div>
+            </a>
+            <a href="editorJava.html" style="text-decoration:none;color:black;">
+            <div class="language-card" onclick="selectLanguage('java')">
+                <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/181_Java_logo_logos-512.png" alt="Java">
+                <p>Java</p>
+            </div>
+            </a>
+            <a href="editorC.html" style="text-decoration:none;color:black;">
+            <div class="language-card" onclick="selectLanguage('C')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png" alt="Kotlin">
+                <p>C</p>
+            </div>
+            </a>
+            <a href="editorCPP.html" style="text-decoration:none;color:black;">
+            <div class="language-card" onclick="selectLanguage('cplusplus')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1822px-ISO_C%2B%2B_Logo.svg.png" alt="C++">
+                <p>C++</p>
+            </div>
+             </a>
+             <a href="editorGo.html" style="text-decoration:none;color:black;">
+            <div class="language-card" onclick="selectLanguage('go')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Go_Logo_Blue.svg/1200px-Go_Logo_Blue.svg.png" alt="Go">
+                <p>Go</p>
+            </div>
+        </a>
+            <a href="editorKotlin.html" style="text-decoration:none;color:black;">
+            <div class="language-card" onclick="selectLanguage('kotlin')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kotlin_Icon.png/1200px-Kotlin_Icon.png" alt="Kotlin">
+                <p>Kotlin</p>
+            </div>
+            </a>
+        </div>
+        
+</div>
+<br>
+<section class="wideSection MB-22">
+    <div class="overviewSection home ImageSection">
+      <h1 class="heading">Write your first code with us. ✨</h1>
+      <a class="primaryButton buttonWidth2 MT-32" href="/learn" previewlistener="true">
+        Start learning today
+        <i class="sparkIcon"></i>
+      </a>
+    </div>
+  
+    <div class="startCodingSection">
+      <div class="sectionImage">
+        <img src="https://cdn.codechef.com/images/home/learn_content_abs.png" alt="Learn Image">
+      </div>
+    </div>
+  </section>
+  
+<div class="pro-section">
+    <div class="pro-text">
+        <h2>Get CodeCraft Pro</h2>
+        <p>Build real-world projects based on what you learn with Pro subscription. Unlock special features.</p>
+        <a href="CodeCraftPro.html" class="pro-button">Go Pro</a>
+    </div>
+    <div class="pro-image">
+        <img src="https://cdn.codechef.com/images/home/pro_illustration.svg" alt="Get CodeCraft Pro">
+    </div>
+</div>
+<button class="rating-btn" onclick="showRatingPopup()">Rate CodeCraft</button>
+<div id="footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading footer:', error));
+
+    // Function to show rating popup
+    function showRatingPopup() {
+        Swal.fire({
+            title: 'Rate CodeCraft',
+            html: `
+                <div class="stars">
+                    <i class="star far fa-star" data-value="1"></i>
+                    <i class="star far fa-star" data-value="2"></i>
+                    <i class="star far fa-star" data-value="3"></i>
+                    <i class="star far fa-star" data-value="4"></i>
+                    <i class="star far fa-star" data-value="5"></i>
+                </div>
+                <textarea class="swal2-textarea" placeholder="what do you like or dislike about codecraft?" style="width: 381px; height: 123px;"></textarea>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Submit',
+            cancelButtonText: 'Cancel',
+            preConfirm: () => {
+                const stars = document.querySelectorAll('.star');
+                let rating = 0;
+                stars.forEach(star => {
+                    if (star.classList.contains('checked')) {
+                        rating = star.getAttribute('data-value');
+                    }
+                });
+                const reason = document.querySelector('.swal2-textarea').value;
+                return { rating, reason };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const { rating, reason } = result.value;
+                Swal.fire({
+                    title: 'Thank you!',
+                    text: `You rated CodeCraft with ${rating} stars. Your feedback: "${reason}"`,
+                    icon: 'success'
+                });
+            }
+        });
+
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', () => {
+                const value = star.getAttribute('data-value');
+                document.querySelectorAll('.star').forEach(s => {
+                    s.classList.remove('checked');
+                });
+                for (let i = 0; i < value; i++) {
+                    document.querySelectorAll('.star')[i].classList.add('checked');
+                }
+            });
+        });
+    }
+    </script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online JavaScript Editor</title>
+    <link rel="stylesheet" href="editorcss.css">
+</head>
+<body>
+<div id="navbar"></div>
+<header>
+    <h1>Online JavaScript Editor</h1>
+    <p>Write, Edit and Run your JavaScript code using CodeCraft</p>
+</header>
+<div class="container">
+    <div class="theme-dropdown">
+        <button id="theme-selector">Themes &#9660;</button>
+        <div class="theme-dropdown-content">
+            <a href="#" id="theme-vscode-light">VS Code Light</a>
+            <a href="#" id="theme-vscode-dark">VS Code Dark</a>
+            <a href="#" id="theme-high-contrast">High Contrast</a>
+        </div>
+    </div>
+    
+    <div class="editor-section">
+        <div id="editor" style="height:500px;width:100%;"></div>
+    </div>
+    <div class="input-output-section">  
+        <textarea id="inputs" name="inputs" placeholder="Enter inputs here, separated by new lines"></textarea>
+        <textarea id="output" style="height: 250px;" readonly></textarea>
+    </div>
+    <br>
+    <button id="run">Run</button>
+</div>
+
+<div id="loading-screen">
+    <div class="spinner"></div>
+    Compiling and Running...
+</div>
+<br><br><br><br>
+<div id="footer"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
+<script>
+// Import Monaco Editor
+require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs' }});
+
+require(['vs/editor/editor.main'], function() {
+    var jsEditor = monaco.editor.create(document.getElementById('editor'), {
+        value: `// Online Javascript Editor for free\n// Write, Edit and Run your Javascript code using JS Online Compiler\n\nconsole.log("Try CodeCraft.pro");`,
+        language: 'javascript',
+        theme: 'vs-dark', // Default theme
+        automaticLayout: true,
+        lineNumbers: 'on',
+        lineDecorationsWidth: 20,
+        scrollBeyondLastLine: false
+    });
+
+    var outputElement = document.getElementById('output');
+
+    document.getElementById('run').addEventListener('click', function() {
+        var code = jsEditor.getValue();
+        var inputs = document.getElementById('inputs').value.split('\n').map(input => input.trim());
+
+        // Clear previous output
+        outputElement.textContent = '';
+
+        try {
+            // Override console.log to capture output in the output area
+            var oldLog = console.log;
+            console.log = function(message) {
+                oldLog.apply(console, arguments);
+                outputElement.textContent += message + '\n';
+            };
+
+            // Wrap the user's code in a function that receives inputs
+            var userFunction = new Function('inputs', code);
+            userFunction(inputs);
+        } catch (error) {
+            console.error('Error:', error);
+            outputElement.textContent += 'Error: ' + error + '\n';
+        } finally {
+            console.log = oldLog; // Restore console.log
+        }
+    });
+
+    // Theme selector functionality
+    document.getElementById('theme-selector').addEventListener('click', function() {
+        document.querySelector('.theme-dropdown-content').classList.toggle('show');
+    });
+
+    // Set theme based on selection
+    document.getElementById('theme-vscode-light').addEventListener('click', function() {
+        jsEditor.updateOptions({ theme: 'vs' }); // VS Code Light theme
+    });
+
+    document.getElementById('theme-vscode-dark').addEventListener('click', function() {
+        jsEditor.updateOptions({ theme: 'vs-dark' }); // VS Code Dark theme
+    });
+
+    document.getElementById('theme-high-contrast').addEventListener('click', function() {
+        jsEditor.updateOptions({ theme: 'hc-black' }); // High Contrast theme
+    });
+
+    // Close dropdown when clicking outside
+    window.onclick = function(event) {
+        if (!event.target.matches('#theme-selector')) {
+            var dropdowns = document.getElementsByClassName('theme-dropdown-content');
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    };
+});
+</script>
+<script>
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading footer:', error));
+</script>
+</body>
+</html>
